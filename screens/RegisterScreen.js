@@ -1,9 +1,15 @@
 import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
-
 import React, { useState, useLayoutEffect } from "react";
 import { Button, Input } from "@rneui/base";
-
+import { auth } from '../firebase'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  updateCurrentUser,
+} from "firebase/auth"
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,7 +23,15 @@ const RegisterScreen = ({ navigation }) => {
 
     return () => { };
   }, [navigation]);
-  const register = () => { };
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password)
+      await updateCurrentUser(auth, { displayName: name, photoURL: imageUrl })
+      console.log(user)
+    } catch (error) {
+      alert(error.message)
+    }
+  };
   return (
     <KeyboardAvoidingView behavior="padding" style={styles.container}>
       <StatusBar style="light" />
