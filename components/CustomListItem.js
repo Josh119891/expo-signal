@@ -3,6 +3,9 @@ import { ListItem, Avatar } from '@rneui/base'
 import React, { useEffect, useState } from 'react'
 import { db } from '../firebase'
 
+
+const AVATAR_URL = 'http://www.zooniverse.org/assets/simple-avatar.png';
+
 const CustomListItem = ({ id, chatName, enterChat }) => {
   const [chatMessages, setChatMessages] = useState([]);
   useEffect(() => {
@@ -16,7 +19,7 @@ const CustomListItem = ({ id, chatName, enterChat }) => {
   return (
     <ListItem key={id} onPress={() => enterChat(id, chatName)} key={id} bottomDivider>
       <Avatar rounded source={{
-        uri: chatMessages?.[0]?.photoUrl || require('../assets/simple-avatar.png')
+        uri: chatMessages?.[0]?.photoUrl || AVATAR_URL
       }} />
       <ListItem.Content>
         <ListItem.Title style={{ fontWeight: "800" }}>

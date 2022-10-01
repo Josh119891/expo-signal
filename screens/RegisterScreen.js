@@ -1,35 +1,31 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import React, { useState, useLayoutEffect } from "react";
-import { Button, Input } from "@rneui/base";
-import { auth } from '../firebase'
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth"
+import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import React, { useState, useLayoutEffect } from 'react';
+import { Button, Input } from '@rneui/base';
+import { auth } from '../firebase';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
+const AVATAR_URL = 'http://www.zooniverse.org/assets/simple-avatar.png';
 
-const AVATAR_URL = 'http://www.zooniverse.org/assets/simple-avatar.png'
 const RegisterScreen = ({ navigation }) => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerBackTitle: "Back to login",
+      headerBackTitle: 'Back to login',
     });
-
-    return () => { };
   }, [navigation]);
+
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password)
-      await updateProfile(auth.currentUser, { displayName: name, photoURL: imageUrl || AVATAR_URL })
-      console.log('register', user)
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, { displayName: name, photoURL: imageUrl || AVATAR_URL });
+      console.log('register', user);
     } catch (error) {
-      alert(error.message)
+      alert(error.message);
     }
   };
   return (
@@ -38,35 +34,12 @@ const RegisterScreen = ({ navigation }) => {
 
       <Text style={styles.title}>Create a Singal account</Text>
       <View style={styles.inputContainer}>
-        <Input
-          placeholder="Full name"
-          autoFocus
-          value={name}
-          onChangeText={(text) => setName(text)}
-        />
-        <Input
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <Input
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <Input
-          placeholder="Image URL (optional)"
-          value={imageUrl}
-          onChangeText={(text) => setImageUrl(text)}
-          onSubmitEditing={register}
-        />
+        <Input placeholder="Full name" autoFocus value={name} onChangeText={(text) => setName(text)} />
+        <Input placeholder="Email" value={email} onChangeText={(text) => setEmail(text)} />
+        <Input placeholder="Password" value={password} onChangeText={(text) => setPassword(text)} />
+        <Input placeholder="Image URL (optional)" value={imageUrl} onChangeText={(text) => setImageUrl(text)} onSubmitEditing={register} />
       </View>
-      <Button
-        raised
-        containerStyle={styles.button}
-        title="Register"
-        onPress={register}
-      />
+      <Button raised containerStyle={styles.button} title="Register" onPress={register} />
     </KeyboardAvoidingView>
   );
 };
@@ -76,10 +49,10 @@ export default RegisterScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   button: { width: 200, marginTop: 10 },
   inputContainer: { width: 300 },
