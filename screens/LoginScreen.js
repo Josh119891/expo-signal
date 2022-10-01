@@ -1,26 +1,24 @@
 import { View, Text, KeyboardAvoidingView } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, Input, Image } from "@rneui/base";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { AVATAR_URL } from "../settings";
 
+
+const LOGO_URL = 'https://assets.mofoprod.net/network/images/signal_logo.width-250.jpg'
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log('currentUser', currentUser)
       if (currentUser) {
         navigation.replace("Home")
       }
     })
     return unsubscribe;
-  }, [])
-
+  }, [navigation])
 
   const signIn = () => { };
   return (
@@ -28,7 +26,7 @@ const LoginScreen = ({ navigation }) => {
       <StatusBar style="light" />
       <Image
         source={{
-          uri: AVATAR_URL,
+          uri: LOGO_URL
         }}
         style={{ width: 200, height: 200 }}
       />

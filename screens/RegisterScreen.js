@@ -5,13 +5,11 @@ import { Button, Input } from "@rneui/base";
 import { auth } from '../firebase'
 import {
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-  updateCurrentUser,
   updateProfile,
 } from "firebase/auth"
-import { AVATAR_URL } from "../settings";
+
+
+const AVATAR_URL = 'http://www.zooniverse.org/assets/simple-avatar.png'
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
