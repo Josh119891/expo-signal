@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet } from "react-native";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import { AVATAR_URL } from "../settings";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser)
+      console.log('currentUser', currentUser)
       if (currentUser) {
         navigation.replace("Home")
       }
@@ -27,7 +28,7 @@ const LoginScreen = ({ navigation }) => {
       <StatusBar style="light" />
       <Image
         source={{
-          uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Signal-Logo.svg/2048px-Signal-Logo.svg.png",
+          uri: AVATAR_URL,
         }}
         style={{ width: 200, height: 200 }}
       />

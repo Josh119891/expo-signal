@@ -1,16 +1,17 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { ListItem, Avatar } from '@rneui/base'
 import React from 'react'
+import { AVATAR_URL } from '../settings'
 
 const CustomListItem = ({ id, chatName, enterChat }) => {
   return (
-    <ListItem>
+    <ListItem onPress={() => enterChat(id, chatName)} key={id} bottomDivider>
       <Avatar rounded source={{
-        uri: "http://www.zooniverse.org/assets/simple-avatar.png"
+        uri: AVATAR_URL
       }} />
       <ListItem.Content>
         <ListItem.Title style={{ fontWeight: "800" }}>
-          Youtube Chat
+          {chatName}
         </ListItem.Title >
         <ListItem.Subtitle numberOfLines={1} ellipsizeMode="tail">
           This is a test Subtitle

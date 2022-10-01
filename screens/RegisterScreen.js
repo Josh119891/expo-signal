@@ -9,7 +9,9 @@ import {
   onAuthStateChanged,
   signOut,
   updateCurrentUser,
+  updateProfile,
 } from "firebase/auth"
+import { AVATAR_URL } from "../settings";
 const RegisterScreen = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -18,7 +20,7 @@ const RegisterScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerBackTitle: "B ack to login",
+      headerBackTitle: "Back to login",
     });
 
     return () => { };
@@ -26,8 +28,8 @@ const RegisterScreen = ({ navigation }) => {
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password)
-      await updateCurrentUser(auth, { displayName: name, photoURL: imageUrl })
-      console.log(user)
+      await updateProfile(auth.currentUser, { displayName: name, photoURL: imageUrl || AVATAR_URL })
+      console.log('register', user)
     } catch (error) {
       alert(error.message)
     }
