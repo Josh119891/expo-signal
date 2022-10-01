@@ -1,9 +1,10 @@
-import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useLayoutEffect } from 'react';
 import { Button, Input } from '@rneui/base';
-import { auth } from '../firebase';
+import { StatusBar } from 'expo-status-bar';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import React, { useState, useLayoutEffect } from 'react';
+import { KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native';
+
+import { auth } from '../firebase';
 
 const AVATAR_URL = 'http://www.zooniverse.org/assets/simple-avatar.png';
 
@@ -23,7 +24,6 @@ const RegisterScreen = ({ navigation }) => {
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, { displayName: name, photoURL: imageUrl || AVATAR_URL });
-      console.log('register', user);
     } catch (error) {
       alert(error.message);
     }

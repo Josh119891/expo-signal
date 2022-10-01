@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View, SafeAreaView, ScrollView, TouchableOpacity, Touchable } from 'react-native';
-import React, { useEffect, useLayoutEffect, useState } from 'react';
-import CustomListItem from '../components/CustomListItem';
-import { Avatar } from '@rneui/base';
-import { auth, db } from '../firebase';
 import { AntDesign, SimpleLineIcons } from '@expo/vector-icons';
+import { Avatar } from '@rneui/base';
 import { onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, TouchableOpacity, Touchable } from 'react-native';
 
+import CustomListItem from '../components/CustomListItem';
+import { auth, db } from '../firebase';
 
 const AVATAR_URL = 'http://www.zooniverse.org/assets/simple-avatar.png';
 
@@ -18,7 +18,6 @@ const HomeScreen = ({ navigation }) => {
     });
   };
   useLayoutEffect(() => {
-    console.log(auth?.currentUser?.photoURL, auth?.currentUser);
     navigation.setOptions({
       title: 'Signal',
       headerStyle: { backgroundColor: '#fff' },
@@ -63,7 +62,6 @@ const HomeScreen = ({ navigation }) => {
     });
     return unsubscribe;
   }, [navigation]);
-
 
   const enterChat = (id, chatName) => {
     navigation.navigate('Chat', { id, chatName });
